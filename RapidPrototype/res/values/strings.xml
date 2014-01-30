@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RapidPrototype</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="toggle_turn_on">Light On</string>
+    <string name="toggle_turn_off">Light Off</string>
+    <string name="select">Choose a country</string>
+    <string name="select2">Choose an item</string>
+    <string name="button_label">Submit</string>
+
+    <string-array name="country_array">
+        <item>Temperature</item>
+        <item>Humidity</item>
+        <item>Soil Moisture 1</item>
+        <item>Soil Moisture 2</item>
+        <item>Soil Moisture 3</item>
+  </string-array>
+</resources>

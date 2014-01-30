@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:background = "#00FF00"
+  android:layout_height="match_parent">
+   
+  <LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="800dp"
+	android:layout_margin="15dp"
+	android:background="@drawable/roundedcorners">
+	
+      <TableLayout 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" 
+    android:shrinkColumns="*"  android:stretchColumns="*" android:background="#ffffff"> 
+    <!-- Row 1 with single column -->
+     <TableRow 
+        android:layout_height="wrap_content" 
+        android:layout_width="fill_parent" 
+        android:gravity="center_horizontal">  
+
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dip"
+            android:text="Temperature: 70 Degrees F\nHumidity: 70%"
+            android:textColor="#000000" />
+             
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dip"
+            android:text="Soil Mosture 1: 40%"
+            android:textColor="#000000" />
+  
+    </TableRow>  
+     
+     
+    <!-- Row 3 with 2 columns -->
+    <TableRow 
+        android:layout_height="wrap_content" 
+        android:layout_width="fill_parent" 
+        android:gravity="center_horizontal">
+
+     <ToggleButton
+         android:id="@+id/toggleButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:checked="true"
+         android:textOff="@string/toggle_turn_off"
+         android:textOn="@string/toggle_turn_on" />
+             
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dip"
+            android:text="Soil Moisture 2: 50%"
+            android:textColor="#000000" />
+  
+    </TableRow>  
+    
+     <TableRow 
+        android:layout_height="wrap_content" 
+        android:layout_width="fill_parent" 
+        android:gravity="center_horizontal">
+
+
+
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dip"
+            android:text="Tank Level: 70%"
+            android:textColor="#000000" />
+  
+             
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dip"
+            android:text="Soil Moisture 3: 80%"
+            android:textColor="#000000" />
+  
+    </TableRow>  
+     
+</TableLayout>
+ 
+ 
+	</LinearLayout>
+ 
+</LinearLayout>
