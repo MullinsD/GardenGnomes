@@ -38,12 +38,11 @@
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/country_array"
-        android:layout_gravity="center_horizontal"
-        android:prompt="@string/select"/>
+        android:entries="@array/metrics_array"
+        android:prompt="@string/select" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_label" />
@@ -59,7 +58,7 @@
             android:id="@+id/mySimpleXYPlot"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            androidPlot.title="A Simple XY Plot"
+            androidPlot.title="Metrics Statistics"
             androidPlot.domainLabel="Domain"
             androidPlot.rangeLabel="Range"
             androidPlot.titleWidget.labelPaint.textSize="@dimen/title_font_size"

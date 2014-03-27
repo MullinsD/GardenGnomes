@@ -108,7 +108,7 @@ public class CurrentActivity extends Activity {
      SimpleAdapter simpleAdapter = new SimpleAdapter(this, employeeList,
        android.R.layout.simple_list_item_1,
        new String[] { "employees" }, new int[] { android.R.id.text1 });
-     listView.setAdapter(simpleAdapter);
+     //listView.setAdapter(simpleAdapter);
     }
     
     private HashMap<String, String> createEmployee(String name, String number) {

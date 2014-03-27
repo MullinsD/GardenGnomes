@@ -10,11 +10,9 @@
     <string name="select2">Choose an item</string>
     <string name="button_label">Submit</string>
 
-    <string-array name="country_array">
+    <string-array name="metrics_array">
         <item>Temperature</item>
         <item>Humidity</item>
-        <item>Soil Moisture 1</item>
-        <item>Soil Moisture 2</item>
-        <item>Soil Moisture 3</item>
+        <item>Soil Moisture</item>
   </string-array>
 </resources>
