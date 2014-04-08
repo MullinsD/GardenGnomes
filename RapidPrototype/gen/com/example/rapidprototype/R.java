@@ -9,6 +9,7 @@ package com.example.rapidprototype;
 
 public final class R {
     public static final class array {
+        public static final int granularity_array=0x7f070001;
         public static final int metrics_array=0x7f070000;
     }
     public static final class attr {
@@ -42,12 +43,13 @@ public final class R {
     }
     public static final class id {
         public static final int TextView04=0x7f0a0000;
-        public static final int action_settings=0x7f0a0007;
-        public static final int btnSubmit=0x7f0a0005;
+        public static final int action_settings=0x7f0a0008;
+        public static final int btnSubmit=0x7f0a0006;
         public static final int date_picker1=0x7f0a0002;
         public static final int date_picker2=0x7f0a0003;
-        public static final int mySimpleXYPlot=0x7f0a0006;
-        public static final int spinner1=0x7f0a0004;
+        public static final int mySimpleXYPlot=0x7f0a0007;
+        public static final int spnGranularity=0x7f0a0005;
+        public static final int spnMetrics=0x7f0a0004;
         public static final int toggleButton=0x7f0a0001;
     }
     public static final class layout {
@@ -64,8 +66,9 @@ public final class R {
         public static final int app_name=0x7f060000;
         public static final int button_label=0x7f060007;
         public static final int hello_world=0x7f060002;
-        public static final int select=0x7f060005;
         public static final int select2=0x7f060006;
+        public static final int select_gran=0x7f060008;
+        public static final int select_metric=0x7f060005;
         public static final int toggle_turn_off=0x7f060004;
         public static final int toggle_turn_on=0x7f060003;
     }

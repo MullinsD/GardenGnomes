@@ -26,30 +26,35 @@
         android:text="End Date"
         android:layout_weight="1"/>
     </LinearLayout>
-    
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="1.25"
-    android:gravity="center_vertical|center_horizontal"
-    android:orientation="horizontal" >
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|center_horizontal|center_vertical"
-        android:entries="@array/metrics_array"
-        android:prompt="@string/select" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.25"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="@string/button_label" />
+        <Spinner
+            android:id="@+id/spnMetrics"
+            android:layout_width="210dp"
+            android:layout_height="48dp"
+            android:entries="@array/metrics_array"
+            android:prompt="@string/select_metric" />
 
-</LinearLayout>
+        <Spinner
+            android:id="@+id/spnGranularity"
+            android:layout_width="186dp"
+            android:layout_height="48dp"
+            android:entries="@array/granularity_array"
+            android:prompt="@string/select_gran" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/button_label" />
+    </LinearLayout>
 
      <LinearLayout
         android:orientation="horizontal"

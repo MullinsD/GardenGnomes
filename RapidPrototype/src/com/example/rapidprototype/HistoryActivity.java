@@ -54,14 +54,16 @@ public class HistoryActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 
-				Spinner spnMetrics = (Spinner) findViewById(R.id.spinner1);
+				Spinner spnMetrics = (Spinner) findViewById(R.id.spnMetrics);
+				Spinner spnGran = (Spinner) findViewById(R.id.spnGranularity);
 				DatePicker pckStartDate = (DatePicker) findViewById(R.id.date_picker1);
 				DatePicker pckEndDate = (DatePicker) findViewById(R.id.date_picker2);
 				String startDate = getFormattedDate(pckStartDate);
 				String endDate = getFormattedDate(pckEndDate);
 				System.out.println("Start Date: " + startDate);
-				//2014-03-14 
-				getData(spnMetrics, startDate, endDate);
+
+				
+				getData(spnMetrics, spnGran, startDate, endDate);
 				String metricName = spnMetrics.getSelectedItem().toString();
 				String plotTitle = metricName + " vs. Time";
 				//connects plot with layout
@@ -109,11 +111,14 @@ public class HistoryActivity extends Activity {
 		});
 	}
 
-	private void getData(Spinner spnMetrics, String startDate, String endDate){
+	private void getData(Spinner spnMetrics, Spinner spnGran, String startDate, String endDate){
 
 		try {
 
 			String metricIn = spnMetrics.getSelectedItem().toString();
+			String granIn = spnGran.getSelectedItem().toString();
+			granIn = granIn.substring(3);
+			Log.i("Gran In ", granIn);
 			String metricName = "";
 			if (metricIn.equals("Temperature")){
 				metricName = "temp";
@@ -130,7 +135,8 @@ public class HistoryActivity extends Activity {
 			params.add(new BasicNameValuePair("start_date", startDate));
 			params.add(new BasicNameValuePair("end_date", endDate));
 			params.add(new BasicNameValuePair("metrics", metricName));
-
+			params.add(new BasicNameValuePair("gran", granIn));
+			
 			JSONObject json = jParser.getJSONFromUrl(url, params);
 			metricsSeries = new ArrayList<Double>();
 			timeSeries = new ArrayList<String>();
