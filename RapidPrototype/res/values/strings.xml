@@ -23,4 +23,7 @@
     </string-array>
     <string name="select_gran">Select Granularity</string>
     <string name="select_pid">Select Pi ID</string>
+    <integer-array name="duration_minutes_array">
+    </integer-array>
+    <integer-array name="duration_seconds_array"></integer-array>
 </resources>

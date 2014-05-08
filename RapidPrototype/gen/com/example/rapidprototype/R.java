@@ -9,6 +9,8 @@ package com.example.rapidprototype;
 
 public final class R {
     public static final class array {
+        public static final int duration_minutes_array=0x7f070002;
+        public static final int duration_seconds_array=0x7f070003;
         public static final int granularity_array=0x7f070001;
         public static final int metrics_array=0x7f070000;
     }
@@ -42,49 +44,50 @@ public final class R {
         public static final int settings=0x7f020007;
     }
     public static final class id {
-        public static final int SeekBar1=0x7f0a000d;
-        public static final int SeekBar3=0x7f0a000f;
-        public static final int Spinner01=0x7f0a001e;
-        public static final int Spinner02=0x7f0a0022;
-        public static final int Spinner03=0x7f0a0023;
-        public static final int Spinner04=0x7f0a0027;
-        public static final int Spinner05=0x7f0a0028;
-        public static final int TextView01=0x7f0a001d;
+        public static final int LinearLayout=0x7f0a0029;
+        public static final int Sun=0x7f0a0016;
+        public static final int TextView01=0x7f0a001e;
         public static final int TextView02=0x7f0a0024;
         public static final int TextView03=0x7f0a0026;
         public static final int TextView04=0x7f0a0000;
-        public static final int action_settings=0x7f0a002b;
-        public static final int btnSubmit=0x7f0a0007;
-        public static final int button1=0x7f0a0029;
-        public static final int button2=0x7f0a002a;
-        public static final int checkBox1=0x7f0a000b;
+        public static final int action_settings=0x7f0a002c;
+        public static final int button2=0x7f0a002b;
+        public static final int checkAuto=0x7f0a000b;
+        public static final int checkBox1=0x7f0a0014;
         public static final int checkBox2=0x7f0a0015;
-        public static final int checkBox3=0x7f0a0016;
-        public static final int checkBox4=0x7f0a0017;
-        public static final int checkBox5=0x7f0a0014;
-        public static final int checkBox6=0x7f0a0018;
-        public static final int checkBox7=0x7f0a0019;
-        public static final int checkBox8=0x7f0a001a;
+        public static final int checkBox3=0x7f0a0017;
+        public static final int checkBox4=0x7f0a0018;
+        public static final int checkBox5=0x7f0a0019;
+        public static final int checkBox6=0x7f0a001a;
+        public static final int checkBox7=0x7f0a001b;
         public static final int date_picker1=0x7f0a0002;
         public static final int date_picker2=0x7f0a0003;
+        public static final int histBtnSubmit=0x7f0a0007;
         public static final int mySimpleXYPlot=0x7f0a0008;
         public static final int radioButton1=0x7f0a0013;
-        public static final int spinner1=0x7f0a000a;
+        public static final int seekMoisture=0x7f0a000f;
+        public static final int seekMoistureValue=0x7f0a0011;
+        public static final int seekTemp=0x7f0a000d;
+        public static final int seekTempValue=0x7f0a0010;
+        public static final int setBtnSubmit=0x7f0a002a;
+        public static final int setSpnPid=0x7f0a000a;
+        public static final int spnDurationMin=0x7f0a0027;
+        public static final int spnDurationSec=0x7f0a0028;
         public static final int spnGranularity=0x7f0a0006;
         public static final int spnMetrics=0x7f0a0005;
         public static final int spnPids=0x7f0a0004;
-        public static final int tableRow1=0x7f0a001b;
-        public static final int tableRow2=0x7f0a001c;
-        public static final int tableRow3=0x7f0a0020;
+        public static final int tableRow1=0x7f0a001c;
+        public static final int tableRow2=0x7f0a001d;
+        public static final int tableRow3=0x7f0a0021;
         public static final int tableRow4=0x7f0a0025;
         public static final int textView1=0x7f0a000c;
         public static final int textView2=0x7f0a000e;
-        public static final int textView3=0x7f0a0010;
         public static final int textView4=0x7f0a0012;
-        public static final int textView5=0x7f0a001f;
-        public static final int textView6=0x7f0a0021;
+        public static final int textView5=0x7f0a0020;
+        public static final int textView6=0x7f0a0022;
         public static final int textView7=0x7f0a0009;
-        public static final int textView8=0x7f0a0011;
+        public static final int timePickInterval=0x7f0a0023;
+        public static final int timePickStart=0x7f0a001f;
         public static final int toggleButton=0x7f0a0001;
     }
     public static final class layout {

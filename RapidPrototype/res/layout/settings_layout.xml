@@ -6,38 +6,37 @@
 
     <!-- Screen Design for Settings -->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.85" >
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2.85" >
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:text="Raspberry Pi ID:"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="16dp"
-                android:text="Raspberry Pi ID:"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+        <Spinner
+            android:id="@+id/setSpnPid"
+            android:layout_width="125dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView7" />
 
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="125dp"
-                android:layout_height="60dp"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/textView7" />
-
-            <CheckBox
-                android:id="@+id/checkBox1"
-                android:layout_width="192dp"
-                android:layout_height="34dp"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/spinner1"
-                android:checked="true"
-                android:text="Automate Garden" />
-
-        </RelativeLayout>
+        <CheckBox
+            android:id="@+id/checkAuto"
+            android:layout_width="192dp"
+            android:layout_height="34dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/setSpnPid"
+            android:checked="true"
+            android:text="Automate Garden" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -54,7 +53,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <SeekBar
-            android:id="@+id/SeekBar1"
+            android:id="@+id/seekTemp"
             android:layout_width="313dp"
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
@@ -66,12 +65,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/SeekBar1"
+            android:layout_below="@+id/seekTemp"
             android:text="Moisture"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <SeekBar
-            android:id="@+id/SeekBar3"
+            android:id="@+id/seekMoisture"
             android:layout_width="313dp"
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
@@ -79,24 +78,23 @@
             android:max="300" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/seekTempValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/SeekBar1"
+            android:layout_alignBottom="@+id/seekTemp"
             android:layout_marginLeft="17dp"
-            android:layout_toRightOf="@+id/SeekBar1"
+            android:layout_toRightOf="@+id/seekTemp"
             android:text="70"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/seekMoistureValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/SeekBar3"
-            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignBottom="@+id/seekMoisture"
+            android:layout_alignLeft="@+id/seekTempValue"
             android:text="100"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
     </RelativeLayout>
 
     <TextView
@@ -120,7 +118,7 @@
             android:text="Weekly" />
 
         <CheckBox
-            android:id="@+id/checkBox5"
+            android:id="@+id/checkBox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -132,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/checkBox5"
+            android:layout_toRightOf="@+id/Sun"
             android:text="Mon" />
 
         <CheckBox
@@ -152,7 +150,7 @@
             android:text="Wed" />
 
         <CheckBox
-            android:id="@+id/checkBox6"
+            android:id="@+id/checkBox5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -160,21 +158,20 @@
             android:text="Thurs" />
 
         <CheckBox
-            android:id="@+id/checkBox7"
+            android:id="@+id/checkBox6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/checkBox6"
+            android:layout_toRightOf="@+id/checkBox5"
             android:text="Fri" />
 
         <CheckBox
-            android:id="@+id/checkBox8"
+            android:id="@+id/checkBox7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/checkBox7"
             android:text="Sat" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -191,7 +188,6 @@
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
         </TableRow>
 
         <TableRow
@@ -206,15 +202,10 @@
                 android:text="Start Time: "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <Spinner
-                android:id="@+id/Spinner01"
-                android:layout_width="100dp"
-                android:layout_height="60dp" />
-
-            <Spinner
-                android:id="@+id/Spinner01"
-                android:layout_width="125dp"
-                android:layout_height="60dp" />
+            <TimePicker
+                android:id="@+id/timePickStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -236,15 +227,10 @@
                 android:text="Run Every: "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <Spinner
-                android:id="@+id/Spinner02"
-                android:layout_width="125dp"
-                android:layout_height="60dp" />
-
-            <Spinner
-                android:id="@+id/Spinner03"
-                android:layout_width="125dp"
-                android:layout_height="60dp" />
+            <TimePicker
+                android:id="@+id/timePickInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/TextView02"
@@ -266,15 +252,23 @@
                 android:text="Duration: "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <Spinner
-                android:id="@+id/Spinner04"
-                android:layout_width="125dp"
-                android:layout_height="60dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
-            <Spinner
-                android:id="@+id/Spinner05"
-                android:layout_width="125dp"
-                android:layout_height="60dp" />
+                <Spinner
+                    android:id="@+id/spnDurationMin"
+                    android:layout_width="108dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/duration_minutes_array" />
+
+                <Spinner
+                    android:id="@+id/spnDurationSec"
+                    android:layout_width="66dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.03"
+                    android:entries="@array/duration_seconds_array" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/TextView04"
@@ -285,33 +279,39 @@
         </TableRow>
     </TableLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/LinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_weight="8.28"
+        android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="Button" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center_horizontal" >
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/button1"
-            android:text="Submit" />
+            <Button
+                android:id="@+id/setBtnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false"
+                android:padding="20dp"
+                android:text="Submit" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/button1"
-            android:text="Cancel" />
-    </RelativeLayout>
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/setBtnSubmit"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/setBtnSubmit"
+                android:padding="20dp"
+                android:text="Cancel" />
+
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

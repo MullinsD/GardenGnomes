@@ -1,7 +1,7 @@
 package com.example.rapidprototype;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,7 +32,6 @@ import com.androidplot.xy.XYSeries;
 
 public class HistoryActivity extends Activity {
 	final Context context = this;
-	Button btnSubmit;
 
 	private XYPlot plot;
 	private ArrayList<Double> metricsSeries;
@@ -57,11 +56,13 @@ public class HistoryActivity extends Activity {
 		setContentView(R.layout.history_layout);
 		getPids();
 		onSubmit();
-
 	}
+	
+	
+	
 	public void onSubmit(){ 
 
-		btnSubmit = (Button) findViewById(R.id.btnSubmit);
+		Button btnSubmit = (Button) findViewById(R.id.histBtnSubmit);
 		btnSubmit.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -69,12 +70,13 @@ public class HistoryActivity extends Activity {
 
 				Spinner spnMetrics = (Spinner) findViewById(R.id.spnMetrics);
 				Spinner spnGran = (Spinner) findViewById(R.id.spnGranularity);
+				Spinner spnPids = (Spinner)  findViewById(R.id.spnPids);
+
 				DatePicker pckStartDate = (DatePicker) findViewById(R.id.date_picker1);
 				DatePicker pckEndDate = (DatePicker) findViewById(R.id.date_picker2);
 				String startDate = getFormattedDate(pckStartDate);
 				String endDate = getFormattedDate(pckEndDate);
 				System.out.println("Start Date: " + startDate);
-				Spinner spnPids = (Spinner)  findViewById(R.id.spnPids);
 				//Check Internet before Getting Data
 				getData(spnMetrics, spnGran, spnPids, startDate, endDate);
 				String metricName = spnMetrics.getSelectedItem().toString();
