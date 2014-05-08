@@ -42,7 +42,9 @@ public class SettingsActivity extends Activity {
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_DATA = "data";
 	private static final String TAG_PIDS = "pids";
-
+	private TextView seekTempValue;
+	private TextView seekMoistureValue;
+	
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class SettingsActivity extends Activity {
 	}
 	public void onSeekChange(){
 		SeekBar seekTemp = (SeekBar)findViewById(R.id.seekTemp); 
-		final TextView seekTempValue = (TextView)findViewById(R.id.seekTempValue); 
+		seekTempValue = (TextView)findViewById(R.id.seekTempValue); 
 		seekTemp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){ 
 			@Override 
 			public void onProgressChanged(SeekBar seekTemp, int progress, boolean fromUser) { 
@@ -97,7 +99,7 @@ public class SettingsActivity extends Activity {
 		});
 
 		SeekBar seekMoisture = (SeekBar)findViewById(R.id.seekMoisture); 
-		final TextView seekMoistureValue = (TextView)findViewById(R.id.seekMoistureValue);
+		seekMoistureValue = (TextView)findViewById(R.id.seekMoistureValue);
 		seekMoisture.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){ 
 			@Override 
 			public void onProgressChanged(SeekBar seekMoisture, int progress, boolean fromUser) { 
@@ -136,7 +138,18 @@ public class SettingsActivity extends Activity {
 					});
 					AlertDialog dialog = builder.create();
 					dialog.show();
+				}else{
+					AlertDialog.Builder builder = new AlertDialog.Builder(context);
+					builder.setMessage("The settings have been updated.")
+					.setTitle("Confirmation")
+					.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
 
+						}
+					});
+					AlertDialog dialog = builder.create();
+					dialog.show();					
+					
 				}
 
 
@@ -193,10 +206,13 @@ public class SettingsActivity extends Activity {
 			Spinner spnSec = (Spinner)  findViewById(R.id.spnDurationSec);
 			String secIn = spnSec.getSelectedItem().toString();
 
+			String tempIn = seekTempValue.getText().toString();
+			String moistureIn = seekMoistureValue.getText().toString();
+
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("pid", pidIn));
-			params.add(new BasicNameValuePair("durMin", minIn));
-			params.add(new BasicNameValuePair("durSec", secIn));
+			params.add(new BasicNameValuePair("temp", tempIn));
+			params.add(new BasicNameValuePair("soil_moisture", moistureIn));
 			
 
 			JSONObject json = jParser.getJSONFromUrl(process_settings_url, params);
@@ -209,7 +225,7 @@ public class SettingsActivity extends Activity {
 				return -1;
 			}
 			// Check your log cat for JSON reponse
-			Log.d("Data: ", json.toString());
+			Log.d("POST Data: ", json.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return -1;
