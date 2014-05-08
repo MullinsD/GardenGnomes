@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,11 +41,11 @@ public class SettingsActivity extends Activity {
 
 	// JSON Node names
 	private static final String TAG_SUCCESS = "success";
-	private static final String TAG_DATA = "data";
+	private static final String TAG_ERROR = "err_msg";
 	private static final String TAG_PIDS = "pids";
 	private TextView seekTempValue;
 	private TextView seekMoistureValue;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
@@ -149,7 +150,7 @@ public class SettingsActivity extends Activity {
 					});
 					AlertDialog dialog = builder.create();
 					dialog.show();					
-					
+
 				}
 
 
@@ -199,32 +200,64 @@ public class SettingsActivity extends Activity {
 		try {
 			Spinner spnPids = (Spinner)  findViewById(R.id.setSpnPid);
 			String pidIn = spnPids.getSelectedItem().toString();
-			
+
 			Spinner spnMin = (Spinner)  findViewById(R.id.spnDurationMin);
 			String minIn = spnMin.getSelectedItem().toString();
-			
+
 			Spinner spnSec = (Spinner)  findViewById(R.id.spnDurationSec);
 			String secIn = spnSec.getSelectedItem().toString();
 
 			String tempIn = seekTempValue.getText().toString();
 			String moistureIn = seekMoistureValue.getText().toString();
 
+			TimePicker startPick = (TimePicker) findViewById(R.id.timePickStart);
+			String startHour = startPick.getCurrentHour().toString();
+			String startMin = startPick.getCurrentMinute().toString();
+
+			TimePicker intPick = (TimePicker) findViewById(R.id.timePickInterval);
+			String intHour = intPick.getCurrentHour().toString();
+			String intMin = intPick.getCurrentMinute().toString();
+
+			String autoIn = "";
+			CheckBox auto = (CheckBox) findViewById(R.id.checkAuto);
+			if(auto.isChecked()){
+				autoIn = "yes";
+			}else{
+				autoIn = "no";
+			}
+
+			String daysIn = getCheckedDays();
+			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("pid", pidIn));
 			params.add(new BasicNameValuePair("temp", tempIn));
 			params.add(new BasicNameValuePair("soil_moisture", moistureIn));
-			
+			params.add(new BasicNameValuePair("days", daysIn));
+			params.add(new BasicNameValuePair("durmins", minIn));
+			params.add(new BasicNameValuePair("dursecs", secIn));
+			params.add(new BasicNameValuePair("starthours", startHour));
+			params.add(new BasicNameValuePair("startmins", startMin));
+			params.add(new BasicNameValuePair("runhours", intHour));
+			params.add(new BasicNameValuePair("runmins", intMin));
+			params.add(new BasicNameValuePair("auto", autoIn));
 
+			String paramList = "";
+			for (int i = 0; i < params.size(); i++){
+				paramList = paramList + params.get(i) + "\n";
+			}
+
+			Log.i("Setting Parameters", paramList);
 			JSONObject json = jParser.getJSONFromUrl(process_settings_url, params);
-			
+
 			if (json.getInt(TAG_SUCCESS)==1){
 				Log.i("Configurations Completed", "Settings have been set.");
+			}else if (json.getInt(TAG_SUCCESS) == 0){
+				Log.e("Database Error.", json.getString(TAG_ERROR));
 			}else{
-
 				Log.e("Settings Error", "Could not get JSON Response");
 				return -1;
 			}
-			// Check your log cat for JSON reponse
+			// Check your log cat for JSON response
 			Log.d("POST Data: ", json.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -233,6 +266,35 @@ public class SettingsActivity extends Activity {
 
 
 		return 0;
+	}
+	
+	private String getCheckedDays(){
+		String days = "";
+		CheckBox sun = (CheckBox) findViewById(R.id.checkBox1);
+		CheckBox mon = (CheckBox) findViewById(R.id.checkBox2);
+		CheckBox tues = (CheckBox) findViewById(R.id.checkBox3);
+		CheckBox wed = (CheckBox) findViewById(R.id.checkBox4);
+		CheckBox thurs = (CheckBox) findViewById(R.id.checkBox5);
+		CheckBox fri = (CheckBox) findViewById(R.id.checkBox6);
+		CheckBox sat = (CheckBox) findViewById(R.id.checkBox7);
+
+		if(sun.isChecked())
+			days = days + "sun" + "|";
+		if(mon.isChecked())
+			days = days + "mon" + "|";
+		if(tues.isChecked())
+			days = days + "tues" + "|";	
+		if(wed.isChecked())
+			days = days + "wed" + "|";
+		if(thurs.isChecked())
+			days = days + "thurs" + "|";
+		if(fri.isChecked())
+			days = days + "fri" + "|";
+		if(sat.isChecked())
+			days = days + "sat" + "|";
+		
+		return days;
+		
 	}
 
 	private void checkNetwork(){
