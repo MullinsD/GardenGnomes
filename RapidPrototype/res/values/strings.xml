@@ -22,4 +22,5 @@
         <item >By Year</item>
     </string-array>
     <string name="select_gran">Select Granularity</string>
+    <string name="select_pid">Select Pi ID</string>
 </resources>

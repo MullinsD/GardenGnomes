@@ -13,11 +13,11 @@
          >
 
        <DatePicker
-        android:id="@+id/date_picker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Date"
-        android:layout_weight="1" />
+           android:id="@+id/date_picker1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="Start Date" />
        
        <DatePicker
         android:id="@+id/date_picker2"
@@ -35,18 +35,33 @@
         android:orientation="vertical" >
 
         <Spinner
-            android:id="@+id/spnMetrics"
-            android:layout_width="210dp"
+            android:id="@+id/spnPids"
+            android:layout_width="217dp"
             android:layout_height="48dp"
-            android:entries="@array/metrics_array"
-            android:prompt="@string/select_metric" />
+            android:prompt="@string/select_pid" />
 
-        <Spinner
-            android:id="@+id/spnGranularity"
-            android:layout_width="186dp"
-            android:layout_height="48dp"
-            android:entries="@array/granularity_array"
-            android:prompt="@string/select_gran" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:prompt="@string/select_pid" >
+
+            <Spinner
+                android:id="@+id/spnMetrics"
+                android:layout_width="210dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:entries="@array/metrics_array"
+                android:prompt="@string/select_metric" />
+
+            <Spinner
+                android:id="@+id/spnGranularity"
+                android:layout_width="186dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:entries="@array/granularity_array"
+                android:prompt="@string/select_gran" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnSubmit"

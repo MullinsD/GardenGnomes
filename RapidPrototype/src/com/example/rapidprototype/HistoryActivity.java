@@ -4,8 +4,14 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Button;
@@ -25,12 +31,15 @@ import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
 
 public class HistoryActivity extends Activity {
+	final Context context = this;
 	Button btnSubmit;
+
 	private XYPlot plot;
 	private ArrayList<Double> metricsSeries;
 	private ArrayList<String> timeSeries; 
+	private ArrayList<String> pidList; 
+
 	private String url = "http://people.eecs.ku.edu/~smar/garden_pi/data.php";
-	final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
 
 	// Creating JSON Parser object
 	jsonParser jParser = new jsonParser();
@@ -38,11 +47,15 @@ public class HistoryActivity extends Activity {
 	// JSON Node names
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_DATA = "data";
-	
+	private static final String TAG_PIDS = "pids";
+
 
 	public void onCreate(Bundle savedInstanceState) {
+		checkNetwork();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.history_layout);
+		getPids();
 		onSubmit();
 
 	}
@@ -61,9 +74,9 @@ public class HistoryActivity extends Activity {
 				String startDate = getFormattedDate(pckStartDate);
 				String endDate = getFormattedDate(pckEndDate);
 				System.out.println("Start Date: " + startDate);
-
-				
-				getData(spnMetrics, spnGran, startDate, endDate);
+				Spinner spnPids = (Spinner)  findViewById(R.id.spnPids);
+				//Check Internet before Getting Data
+				getData(spnMetrics, spnGran, spnPids, startDate, endDate);
 				String metricName = spnMetrics.getSelectedItem().toString();
 				String plotTitle = metricName + " vs. Time";
 				//connects plot with layout
@@ -111,12 +124,50 @@ public class HistoryActivity extends Activity {
 		});
 	}
 
-	private void getData(Spinner spnMetrics, Spinner spnGran, String startDate, String endDate){
+	private void getPids(){
+		try{
+			String pid_url = "http://people.eecs.ku.edu/~smar/garden_pi/get_pid.php";
+			JSONObject json = jParser.getJSONFromUrl(pid_url, null);
+			pidList = new ArrayList<String>();
+			if (json.getInt(TAG_SUCCESS)==1){
+				Log.i("Successful Parsing", "Parsing of JSON Response was successful");
+			}else{
+				Log.e("Parsing Error", "Could not parse JSON response");
+				return;
+			}
+			// Check your log cat for JSON reponse
+
+			// Getting JSON Array node
+			JSONArray pids = json.getJSONArray(TAG_PIDS);
+
+			// looping through all data
+			for (int i = 0; i < pids.length(); i++) {
+				String pid = pids.getString(i);
+				Log.d("PID", pids.getString(i));
+				pidList.add(pid);
+			}
+			
+			Spinner spnPids = (Spinner)  findViewById(R.id.spnPids);
+			ArrayAdapter<String> ad1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pidList);
+			ad1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spnPids.setPrompt("Select Pi ID");
+			spnPids.setAdapter(ad1);
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+
+		return;
+	}
+
+	private void getData(Spinner spnMetrics, Spinner spnGran, Spinner spnPid, String startDate, String endDate){
 
 		try {
 
 			String metricIn = spnMetrics.getSelectedItem().toString();
 			String granIn = spnGran.getSelectedItem().toString();
+			String pidIn = spnPid.getSelectedItem().toString();
 			granIn = granIn.substring(3);
 			Log.i("Gran In ", granIn);
 			String metricName = "";
@@ -130,13 +181,14 @@ public class HistoryActivity extends Activity {
 				metricName = "error";
 				Log.e("Invalid Spinner Entry", "ERROR: Could not comprehend spinner entry for metrics value");
 			}
-			
+
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("pid", pidIn));
 			params.add(new BasicNameValuePair("start_date", startDate));
 			params.add(new BasicNameValuePair("end_date", endDate));
 			params.add(new BasicNameValuePair("metrics", metricName));
 			params.add(new BasicNameValuePair("gran", granIn));
-			
+
 			JSONObject json = jParser.getJSONFromUrl(url, params);
 			metricsSeries = new ArrayList<Double>();
 			timeSeries = new ArrayList<String>();
@@ -168,63 +220,27 @@ public class HistoryActivity extends Activity {
 
 		return;
 	}
-}
-/**
- * Background Async Task to Create new product
- * *
-	class GetJSONData extends AsyncTask<String, String, String> {
 
-
-
-		@Override
-		protected String doInBackground(String... arg0) {
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			// getting JSON string from URL
-			JSONObject json = jParser.makeHttpRequest(url, "GET", params);
-
-			// Check your log cat for JSON reponse
-			Log.d("All Products: ", json.toString());
-
-			String metric_name = "";
-			if (metric_in == "Temperature"){
-				metric_name = "temp";
-			}else if (metric_in == "Humidity"){
-				metric_name = "humd";
-			}else if (metric_in == "Soil Moisture"){
-				metric_name = "soil";
-			}else {
-				metric_name = "error";
-				Log.e("Invalid Spinner Entry", "ERROR: Could not comprehend spinner entry for metrics value");
-			}
-
-			try {
-
-				// Getting JSON Array node
-				metrics = json.getJSONArray(TAG_DATA);
-
-				// looping through All Contacts
-				for (int i = 0; i < metrics.length(); i++) {
-					JSONObject c = metrics.getJSONObject(i);
-
-					String time = c.getString("time");
-					Double metric_data = Double.parseDouble(c.getString(metric_name));
-					metricsSeries.add(metric_data);
-					timeSeries.add(time);
-
-					/* // tmp hashmap for single contact
-	                         HashMap<String, String> metric = new HashMap<String, String>();
-
-	                         // adding each child node to HashMap key => value
-	                         metric.put("time", time);
-	                         metric.put(metric_name, metric_data);
-
-	                         // adding contact to contact list
-	                         metricsList.add(metric);
+	private void checkNetwork(){
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		if (netInfo != null && netInfo.isConnectedOrConnecting()){
+			Log.i("Network Connection", "Network is Connected.");
+			return;
+		}else{
+			Log.e("Network Connection Error", "Could not connect to Internet");
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			builder.setMessage("No Network Connection! \n Connect and try again.")
+			.setTitle("Error")
+			.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					HistoryActivity.this.finish();
 				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+			});
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			return;
 
-
-			return null;
-		}*/
+		}
+	}
+}

@@ -42,14 +42,49 @@ public final class R {
         public static final int settings=0x7f020007;
     }
     public static final class id {
+        public static final int SeekBar1=0x7f0a000d;
+        public static final int SeekBar3=0x7f0a000f;
+        public static final int Spinner01=0x7f0a001e;
+        public static final int Spinner02=0x7f0a0022;
+        public static final int Spinner03=0x7f0a0023;
+        public static final int Spinner04=0x7f0a0027;
+        public static final int Spinner05=0x7f0a0028;
+        public static final int TextView01=0x7f0a001d;
+        public static final int TextView02=0x7f0a0024;
+        public static final int TextView03=0x7f0a0026;
         public static final int TextView04=0x7f0a0000;
-        public static final int action_settings=0x7f0a0008;
-        public static final int btnSubmit=0x7f0a0006;
+        public static final int action_settings=0x7f0a002b;
+        public static final int btnSubmit=0x7f0a0007;
+        public static final int button1=0x7f0a0029;
+        public static final int button2=0x7f0a002a;
+        public static final int checkBox1=0x7f0a000b;
+        public static final int checkBox2=0x7f0a0015;
+        public static final int checkBox3=0x7f0a0016;
+        public static final int checkBox4=0x7f0a0017;
+        public static final int checkBox5=0x7f0a0014;
+        public static final int checkBox6=0x7f0a0018;
+        public static final int checkBox7=0x7f0a0019;
+        public static final int checkBox8=0x7f0a001a;
         public static final int date_picker1=0x7f0a0002;
         public static final int date_picker2=0x7f0a0003;
-        public static final int mySimpleXYPlot=0x7f0a0007;
-        public static final int spnGranularity=0x7f0a0005;
-        public static final int spnMetrics=0x7f0a0004;
+        public static final int mySimpleXYPlot=0x7f0a0008;
+        public static final int radioButton1=0x7f0a0013;
+        public static final int spinner1=0x7f0a000a;
+        public static final int spnGranularity=0x7f0a0006;
+        public static final int spnMetrics=0x7f0a0005;
+        public static final int spnPids=0x7f0a0004;
+        public static final int tableRow1=0x7f0a001b;
+        public static final int tableRow2=0x7f0a001c;
+        public static final int tableRow3=0x7f0a0020;
+        public static final int tableRow4=0x7f0a0025;
+        public static final int textView1=0x7f0a000c;
+        public static final int textView2=0x7f0a000e;
+        public static final int textView3=0x7f0a0010;
+        public static final int textView4=0x7f0a0012;
+        public static final int textView5=0x7f0a001f;
+        public static final int textView6=0x7f0a0021;
+        public static final int textView7=0x7f0a0009;
+        public static final int textView8=0x7f0a0011;
         public static final int toggleButton=0x7f0a0001;
     }
     public static final class layout {
@@ -69,6 +104,7 @@ public final class R {
         public static final int select2=0x7f060006;
         public static final int select_gran=0x7f060008;
         public static final int select_metric=0x7f060005;
+        public static final int select_pid=0x7f060009;
         public static final int toggle_turn_off=0x7f060004;
         public static final int toggle_turn_on=0x7f060003;
     }
