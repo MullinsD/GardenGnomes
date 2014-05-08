@@ -115,7 +115,7 @@ public class HistoryActivity extends Activity {
 				String formattedDate = "";
 
 				int year = dp.getYear();
-				int month = dp.getMonth();
+				int month = dp.getMonth() + 1;
 				int day = dp.getDayOfMonth();
 
 				formattedDate = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);

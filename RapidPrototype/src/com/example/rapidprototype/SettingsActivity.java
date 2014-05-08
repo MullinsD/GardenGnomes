@@ -85,7 +85,8 @@ public class SettingsActivity extends Activity {
 			@Override 
 			public void onProgressChanged(SeekBar seekTemp, int progress, boolean fromUser) { 
 				// TODO Auto-generated method stub 
-				seekTempValue.setText(String.valueOf(progress)); 
+				int adjusted_progress = progress + 60;
+				seekTempValue.setText(String.valueOf(adjusted_progress)); 
 			}
 
 			@Override 
@@ -105,7 +106,8 @@ public class SettingsActivity extends Activity {
 			@Override 
 			public void onProgressChanged(SeekBar seekMoisture, int progress, boolean fromUser) { 
 				// TODO Auto-generated method stub 
-				seekMoistureValue.setText(String.valueOf(progress)); 
+				int adjusted_progress = progress + 300;
+				seekMoistureValue.setText(String.valueOf(adjusted_progress)); 
 			}
 
 			@Override 
@@ -253,6 +255,7 @@ public class SettingsActivity extends Activity {
 				Log.i("Configurations Completed", "Settings have been set.");
 			}else if (json.getInt(TAG_SUCCESS) == 0){
 				Log.e("Database Error.", json.getString(TAG_ERROR));
+				return -1;
 			}else{
 				Log.e("Settings Error", "Could not get JSON Response");
 				return -1;
