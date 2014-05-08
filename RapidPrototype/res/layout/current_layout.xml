@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="match_parent"
-  android:background = "#00FF00"
-  android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
    
   <LinearLayout
 	android:layout_width="fill_parent"
@@ -12,15 +10,19 @@
 	android:layout_margin="15dp"
 	android:background="@drawable/roundedcorners">
 	
-      <TableLayout 
-    android:layout_width="match_parent" 
-    android:layout_height="match_parent" 
-    android:shrinkColumns="*"  android:stretchColumns="*" android:background="#ffffff"> 
+      <TableLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="#000000"
+          android:shrinkColumns="*"
+          android:stretchColumns="*" >
+ 
     <!-- Row 1 with single column -->
+
      <TableRow 
         android:layout_height="wrap_content" 
         android:layout_width="fill_parent" 
-        android:gravity="center_horizontal">  
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/Temp"
@@ -29,30 +31,28 @@
             android:gravity="center"
             android:padding="20dip"
             android:text="Temperature: 70 Degrees F\nHumidity: 70%"
-            android:textColor="#000000" />
-
+            android:textSize="40sp" />
   
     </TableRow>  
    <TableRow 
         android:layout_height="wrap_content" 
         android:layout_width="fill_parent" 
         android:gravity="center_horizontal">
-                     
-        <TextView
-            android:id="@+id/Soil"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dip"
-            android:text="Soil Mosture 1: 40%"
-            android:textColor="#000000" />
+
+       <TextView
+           android:id="@+id/Soil"
+           android:layout_height="150dp"
+           android:layout_weight="1"
+           android:gravity="center"
+           android:padding="20dip"
+           android:text="Soil Mosture 1: 40%"
+           android:textSize="40sp" />
+
     </TableRow>
          <TableRow 
         android:layout_height="wrap_content" 
         android:layout_width="fill_parent" 
         android:gravity="center_horizontal">
-
-
 
         <TextView
             android:id="@+id/Humd"
@@ -61,41 +61,47 @@
             android:gravity="center"
             android:padding="20dip"
             android:text="Tank Level: 70%"
-            android:textColor="#000000" />
-  
-             
-
+            android:textSize="40sp" />
   
     </TableRow>  
     <!-- Row 3 with 2 columns -->
-    <TableRow 
-        android:layout_height="wrap_content" 
-        android:layout_width="fill_parent" 
-        android:gravity="center_horizontal">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingBottom="20dp" >
 
      <ToggleButton
          android:id="@+id/toggleButton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:checked="true"
+         android:padding="20dp"
          android:textOff="@string/toggle_light_turn_off"
-         android:textOn="@string/toggle_light_turn_on" />
-     
-     <ToggleButton
-         android:id="@+id/toggleButton1"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:checked="true"
-         android:textOff="@string/toggle_sprinkler_turn_off"
-         android:textOn="@string/toggle_sprinkler_turn_on" />
-             
+         android:textOn="@string/toggle_light_turn_on"
+         android:textSize="30sp" />
 
-    </TableRow>  
-    
+    </TableRow>
 
+    <TableRow
+        android:id="@+id/TableRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:padding="20dp"
+            android:textOff="@string/toggle_sprinkler_turn_off"
+            android:textOn="@string/toggle_sprinkler_turn_on"
+            android:textSize="30sp" />
+
+    </TableRow>
      
 </TableLayout>
- 
  
 	</LinearLayout>
  

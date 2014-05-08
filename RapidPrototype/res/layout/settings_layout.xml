@@ -186,7 +186,7 @@
         android:layout_weight="12.47" >
 
         <TableRow
-            android:id="@+id/tableRow1"
+            android:id="@+id/TableRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
         </TableRow>
