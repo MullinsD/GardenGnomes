@@ -23,26 +23,50 @@
         android:gravity="center_horizontal">  
 
         <TextView
-            android:id="@+id/TextView04"
-            android:layout_height="250dp"
+            android:id="@+id/Temp"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="20dip"
             android:text="Temperature: 70 Degrees F\nHumidity: 70%"
             android:textColor="#000000" />
-             
+
+  
+    </TableRow>  
+   <TableRow 
+        android:layout_height="wrap_content" 
+        android:layout_width="fill_parent" 
+        android:gravity="center_horizontal">
+                     
         <TextView
-            android:id="@+id/TextView04"
-            android:layout_height="250dp"
+            android:id="@+id/Soil"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="20dip"
             android:text="Soil Mosture 1: 40%"
             android:textColor="#000000" />
+    </TableRow>
+         <TableRow 
+        android:layout_height="wrap_content" 
+        android:layout_width="fill_parent" 
+        android:gravity="center_horizontal">
+
+
+
+        <TextView
+            android:id="@+id/Humd"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dip"
+            android:text="Tank Level: 70%"
+            android:textColor="#000000" />
+  
+             
+
   
     </TableRow>  
-     
-     
     <!-- Row 3 with 2 columns -->
     <TableRow 
         android:layout_height="wrap_content" 
@@ -54,47 +78,21 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:checked="true"
-         android:textOff="@string/toggle_turn_off"
-         android:textOn="@string/toggle_turn_on" />
+         android:textOff="@string/toggle_light_turn_off"
+         android:textOn="@string/toggle_light_turn_on" />
+     
+     <ToggleButton
+         android:id="@+id/toggleButton1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:checked="true"
+         android:textOff="@string/toggle_sprinkler_turn_off"
+         android:textOn="@string/toggle_sprinkler_turn_on" />
              
-        <TextView
-            android:id="@+id/TextView04"
-            android:layout_height="250dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dip"
-            android:text="Soil Moisture 2: 50%"
-            android:textColor="#000000" />
-  
+
     </TableRow>  
     
-     <TableRow 
-        android:layout_height="wrap_content" 
-        android:layout_width="fill_parent" 
-        android:gravity="center_horizontal">
 
-
-
-        <TextView
-            android:id="@+id/TextView04"
-            android:layout_height="250dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dip"
-            android:text="Tank Level: 70%"
-            android:textColor="#000000" />
-  
-             
-        <TextView
-            android:id="@+id/TextView04"
-            android:layout_height="250dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="20dip"
-            android:text="Soil Moisture 3: 80%"
-            android:textColor="#000000" />
-  
-    </TableRow>  
      
 </TableLayout>
  

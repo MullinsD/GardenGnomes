@@ -1,119 +1,241 @@
 package com.example.rapidprototype;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
- 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+
+import android.widget.CompoundButton;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.ToggleButton;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import org.json.JSONException;
 import org.json.JSONObject;
- 
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
+
+
 public class CurrentActivity extends Activity {
-	private String jsonResult;
-    private String url = "http://people.eecs.ku.edu/~drmullin/test.php";
-    
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.current_layout);
-    }
- // Async Task to access the web
-    private class JsonRead extends AsyncTask<String, Void, String> {
-     @Override
-     protected String doInBackground(String... params) 
-     {
-	      HttpClient httpclient = new DefaultHttpClient();
-	      HttpPost httppost = new HttpPost(params[0]);
-	      try {
-	       HttpResponse response = httpclient.execute(httppost);
-	       jsonResult = inputStreamToString(
-	         response.getEntity().getContent()).toString();
-	      }
-	    
-	      catch (ClientProtocolException e) {
-	       e.printStackTrace();
-	      } catch (IOException e) {
-	       e.printStackTrace();
-	      }
-	      return null;
-     }
-    
-     private StringBuilder inputStreamToString(InputStream is) 
-     {
-	      String rLine = "";
-	      StringBuilder answer = new StringBuilder();
-	      BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-	    
-	      try {
-	       while ((rLine = rd.readLine()) != null) {
-	        answer.append(rLine);
-	       }
-	      }
-    
-	      catch (IOException e) {
-	       // e.printStackTrace();
-	       Toast.makeText(getApplicationContext(),
-	         "Error..." + e.toString(), Toast.LENGTH_LONG).show();
-	      }
-	      return answer;
-     }
-    
-     @Override
-     protected void onPostExecute(String result) {
-      //display values
-     }
-    }// end async task
-    
-    public void accessWebService() {
-     JsonRead task = new JsonRead();
-     task.execute(new String[] { url });
-    }
-    
-    // build hash set for list view
-    public void GetRecent() {
-     List<Map<String, String>> employeeList = new ArrayList<Map<String, String>>();
-    
-     try {
-      JSONObject jsonResponse = new JSONObject(jsonResult);
-      JSONArray jsonMainNode = jsonResponse.optJSONArray("emp_info");
-    
-      for (int i = 0; i < jsonMainNode.length(); i++) {
-       JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-       String name = jsonChildNode.optString("employee name");
-       String number = jsonChildNode.optString("employee no");
-       String outPut = name + "-" + number;
-       employeeList.add(createEmployee("employees", outPut));
-      }
-     } catch (JSONException e) {
-      Toast.makeText(getApplicationContext(), "Error" + e.toString(),
-        Toast.LENGTH_SHORT).show();
-     }
-    
-     SimpleAdapter simpleAdapter = new SimpleAdapter(this, employeeList,
-       android.R.layout.simple_list_item_1,
-       new String[] { "employees" }, new int[] { android.R.id.text1 });
-     //listView.setAdapter(simpleAdapter);
-    }
-    
-    private HashMap<String, String> createEmployee(String name, String number) {
-     HashMap<String, String> employeeNameNo = new HashMap<String, String>();
-     employeeNameNo.put(name, number);
-     return employeeNameNo;
-    }
+	Button btnSubmit;
+
+	final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+
+	// Creating JSON Parser object
+	jsonParser jParser = new jsonParser();
+
+	// JSON Node names
+	private static final String TAG_SUCCESS = "success";
+	private static final String TAG_DATA = "data";
+	
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.current_layout);
+		
+	    handleButtons();	
+		//onSubmit();
+        getMetrics();
+	}
+	
+	private void handleButtons()
+	{
+		ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
+		toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		        if (isChecked) 
+		        {
+		        	String process_settings_url = "http://people.eecs.ku.edu/~drmullin/GardenGnomesWebApp/on_off.php";
+		    		try {
+		    			
+		    			List<NameValuePair> params = new ArrayList<NameValuePair>();
+		    			params.add(new BasicNameValuePair("Light", "on"));
+		    			
+
+		    			JSONObject json = jParser.getJSONFromUrl(process_settings_url, params);
+		    			
+		    			if (json.getInt(TAG_SUCCESS)==1){
+		    				Log.i("Test", "Light Changed");
+		    			}else{
+
+		    				Log.e("Settings Error", "Could not get JSON Response");
+		    			
+		    			}
+		    			// Check your log cat for JSON reponse
+		    			Log.d("POST Data: ", json.toString());
+		    		} catch (JSONException e) {
+		    			e.printStackTrace();
+		    		
+		    		}
+
+
+		        }
+		         else {
+		        	 String process_settings_url = "http://people.eecs.ku.edu/~drmullin/GardenGnomesWebApp/on_off.php";
+			    		try {
+			    			
+			    			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			    			params.add(new BasicNameValuePair("Light", "off"));
+			    			
+
+			    			JSONObject json = jParser.getJSONFromUrl(process_settings_url, params);
+			    			
+			    			if (json.getInt(TAG_SUCCESS)==1){
+			    				Log.i("Configurations Completed", "Settings have been set.");
+			    			}else{
+
+			    				Log.e("Settings Error", "Could not get JSON Response");
+			    			
+			    			}
+			    			// Check your log cat for JSON reponse
+			    			Log.d("POST Data: ", json.toString());
+			    		} catch (JSONException e) {
+			    			e.printStackTrace();
+			    		
+			    		}
+		            
+		        }
+		    }
+		});
+		
+		ToggleButton water = (ToggleButton) findViewById(R.id.toggleButton1);
+		water.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		        if (isChecked) 
+		        {
+		        	String process_settings_url = "http://people.eecs.ku.edu/~drmullin/GardenGnomesWebApp/on_off_sprinkler.php";
+		    		try {
+		    			
+		    			List<NameValuePair> params = new ArrayList<NameValuePair>();
+		    			params.add(new BasicNameValuePair("Water", "on"));
+		    			
+
+		    			JSONObject json = jParser.getJSONFromUrl(process_settings_url, params);
+		    			
+		    			if (json.getInt(TAG_SUCCESS)==1){
+		    				Log.i("Test", "Sprinkler Changed");
+		    			}else{
+
+		    				Log.e("Settings Error", "Could not get JSON Response");
+		    			
+		    			}
+		    			// Check your log cat for JSON reponse
+		    			Log.d("POST Data: ", json.toString());
+		    		} catch (JSONException e) {
+		    			e.printStackTrace();
+		    		
+		    		}
+
+
+		        }
+		         else {
+		        	 String process_settings_url = "http://people.eecs.ku.edu/~drmullin/GardenGnomesWebApp/on_off_sprinkler.php";
+			    		try {
+			    			
+			    			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			    			params.add(new BasicNameValuePair("Water", "off"));
+			    			
+
+			    			JSONObject json = jParser.getJSONFromUrl(process_settings_url, params);
+			    			
+			    			if (json.getInt(TAG_SUCCESS)==1){
+			    				Log.i("Configurations Completed", "Settings have been set.");
+			    			}else{
+
+			    				Log.e("Settings Error", "Could not get JSON Response");
+			    			
+			    			}
+			    			// Check your log cat for JSON reponse
+			    			Log.d("POST Data: ", json.toString());
+			    		} catch (JSONException e) {
+			    			e.printStackTrace();
+			    		
+			    		}
+		            
+		        }
+		    }
+		});
+		
+	}
+	private void updateText(String t, String h, String s, String l, String w) {
+		ToggleButton light = (ToggleButton) findViewById(R.id.toggleButton);
+		ToggleButton water = (ToggleButton) findViewById(R.id.toggleButton1);
+		TextView temp = (TextView) findViewById(R.id.Temp);
+		temp.setText("Current Temperature: " + t + (char) 0x00B0 + " F");
+		TextView soil = (TextView) findViewById(R.id.Soil);
+		
+		if(Integer.parseInt(s) < 510)
+			soil.setText("Current Soil Moisture: " + s + "Consider watering your System");
+		else
+			soil.setText("Current Soil Moisture: " + s);
+		
+		TextView humd = (TextView) findViewById(R.id.Humd);
+		humd.setText("Current Humidity: " + h + "%");
+
+		if(l.equals("on"))
+		{
+			light.setChecked(true);
+		}
+		else if(l.equals("off"))
+		{	
+			light.setChecked(false);
+		}
+		if(w.equals("on"))
+		{
+			water.setChecked(true);
+		}
+		else if(w.equals("off"))
+		{	
+			water.setChecked(false);
+		}
+	}
+/*public void onSubmit(){ 
+
+		btnSubmit = (Button) findViewById(R.id.btnSubmit);
+		btnSubmit.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+
+			}
+
+		});
+	}*/
+
+
+private void getMetrics(){
+		try{
+			String pid_url = "http://people.eecs.ku.edu/~drmullin/GardenGnomesWebApp/get_metrics.php";
+			JSONObject json = jParser.getJSONFromUrl(pid_url, null);
+			if (json.getInt(TAG_SUCCESS)==1){
+				Log.i("Successful Parsing", "Parsing of JSON Response was successful");
+			}else{
+				Log.e("Parsing Error", "Could not parse JSON response");
+				return;
+			}
+			Log.d("Post Data: ", json.toString());
+			// Getting JSON Array node
+
+			updateText(json.getString("temp"), json.getString("humd"), json.getString("soil"), json.getString("light"), json.getString("water"));
+			Log.i("Test", "Text Updated");
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+
+		return;
+
 }
+}
+
+
+
+
+
